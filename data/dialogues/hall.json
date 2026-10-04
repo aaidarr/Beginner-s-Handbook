@@ -1,0 +1,131 @@
+{
+	"intro": {
+		"nodes": {
+			"start": {"speaker": "", "text": "Понедельник, 08:45. Администрация Приреченской области. Сегодня ваш первый рабочий день.", "next": "n2"},
+			"n2": {"speaker": "", "text": "Задача — на панели слева вверху (нажмите на неё для подсказки). Двигайтесь джойстиком, а кнопка справа внизу — чтобы говорить и осматривать.", "end": true}
+		}
+	},
+	"interns_intro": {
+		"nodes": {
+			"start": {"speaker": "gosha", "emotion": "happy", "text": "О! Новенький? Мы тоже! Ну, почти. Мы стажёры, третий день.", "next": "n2"},
+			"n2": {"speaker": "pasha", "emotion": "happy", "text": "Третий с половиной. Чупа-чупс будешь? Клубничный. Последний.",
+				"choices": [
+					{"text": "Возьму, спасибо!", "next": "took", "effects": [{"set": "took_lollipop"}]},
+					{"text": "Нет, спасибо.", "next": "declined"}
+				]},
+			"took": {"speaker": "gosha", "emotion": "happy", "text": "Наш человек. Между коллегами можно — это ж не взятка, это витамины.", "next": "offer"},
+			"declined": {"speaker": "pasha", "emotion": "neutral", "text": "Больше достанется. Шучу, он правда последний.", "next": "offer"},
+			"offer": {"speaker": "gosha", "emotion": "happy", "text": "Слушай, у тебя ж пропуска нет. Семён Ильич бургер доедает — пока он занят, проходи по моему! Я приложу, ты проскочишь.",
+				"choices": [
+					{"text": "Давай, так быстрее!", "correct": false, "retry": true, "feedback_speaker": "semyon", "feedback_emotion": "strict",
+						"feedback": "Кхм! Молодые люди. Пропуск — личный, его не передают и по нему никого не проводят. Новичкам временный выдаю я. Подходи к стойке."},
+					{"text": "А как вообще правильно?", "retry": true, "feedback_speaker": "pasha", "feedback_emotion": "surprised",
+						"feedback": "Эм… Честно? Не знаю. Мы тут сами третий день. Подумай сам, ты же умный."},
+					{"text": "Нет. Пропуск — личный, подойду к коменданту.", "correct": true, "next": "good",
+						"feedback_speaker": "gosha", "feedback_emotion": "surprised", "feedback": "Ого, правильный какой. Ладно-ладно, мы просто проверяли! …Наверное."}
+				]},
+			"good": {"speaker": "pasha", "emotion": "neutral", "text": "Вахта справа. И смотри под ноги — тут кто-то бумажку уронил, мы через неё уже три раза перешагнули.",
+				"effects": [{"set": "talked_interns"}, {"study": "rule_pass"}], "end": true}
+		}
+	},
+	"interns_wait": {
+		"nodes": {
+			"start": {"speaker": "gosha", "emotion": "neutral", "text": "Иди к Семёну Ильичу, он за стойкой справа. Пропуск сам себя не выдаст.", "end": true}
+		}
+	},
+	"interns_after_pass": {
+		"nodes": {
+			"start": {"speaker": "pasha", "emotion": "happy", "text": "О, пропуск! Теперь ты официально наш. Слушай, а куда тебе дальше?",
+				"choices": [
+					{"text": "В 214-й, к наставнику. Второй этаж.", "next": "end1", "if": ["card:org_building"]},
+					{"text": "Не знаю. Где-то тут был план здания…", "next": "end2", "if": ["!card:org_building"]},
+					{"text": "Секрет. Госслужба же!", "next": "end3"}
+				]},
+			"end1": {"speaker": "gosha", "emotion": "surprised", "text": "Уже план выучил? Нам до тебя расти и расти.", "end": true},
+			"end2": {"speaker": "gosha", "emotion": "neutral", "text": "План висит справа у стены. Мы его тоже не читали, но он там есть.", "end": true},
+			"end3": {"speaker": "pasha", "emotion": "happy", "text": "Уважаю. Но если что — турникет вон там, лестница за ним.", "end": true}
+		}
+	},
+	"interns_later": {
+		"nodes": {
+			"start": {"speaker": "gosha", "emotion": "happy", "text": "Мы всё ещё ищем, где кадры. Если увидишь Лидию Аркадьевну — передай, что мы идём. Медленно.", "end": true}
+		}
+	},
+	"paper": {
+		"nodes": {
+			"start": {"speaker": "", "text": "На полу свёрнутый лист бумаги. Похоже, кто-то уронил.", "next": "case"},
+			"case": {"case": "case_paper", "next": "give"},
+			"give": {"speaker": "", "text": "Вы, не разглядывая, относите лист к стойке вахты.", "next": "thanks"},
+			"thanks": {"speaker": "semyon", "emotion": "happy", "text": "О, спасибо! Это ж из общественной приёмной обронили — я им передам. Вот это правильно: не читать, не фотографировать, а сразу ответственному.",
+				"effects": [{"set": "paper_returned"}], "end": true}
+		}
+	},
+	"burger": {
+		"nodes": {
+			"start": {"speaker": "", "text": "Бургер. Надкусанный. Он смотрит на вас. Бургер, не Семён Ильич.", "next": "s1"},
+			"s1": {"speaker": "semyon", "emotion": "surprised", "text": "Это мой завтрак, между прочим! Вообще-то есть положено в столовой, а не на стойке… Но у меня смена с семи утра.",
+				"choices": [
+					{"text": "Приятного аппетита!", "next": "s2"},
+					{"text": "Никому не скажу.", "next": "s2"}
+				]},
+			"s2": {"speaker": "semyon", "emotion": "happy", "text": "Хороший ты человек. Но в книжку себе запиши: обедаем — в столовой на первом этаже, а не за рабочим столом.",
+				"effects": [{"set": "burger_seen"}, {"study": "rule_meals"}], "end": true}
+		}
+	},
+	"burger_again": {
+		"nodes": {
+			"start": {"speaker": "", "text": "Бургер стал заметно меньше. Семён Ильич делает вид, что ничего не происходит.", "end": true}
+		}
+	},
+	"semyon_pass": {
+		"nodes": {
+			"start": {"speaker": "semyon", "emotion": "happy", "text": "Доброе утро! Новый сотрудник? Сейчас посмотрю список… {name}, отдел по работе с обращениями граждан. Есть такой!", "next": "give"},
+			"give": {"speaker": "semyon", "emotion": "neutral", "text": "Держи временный пропуск. Постоянный сделаем за неделю — после оформления в кадрах. Носи с собой и никому не передавай.",
+				"effects": [{"set": "has_pass"}, {"study": "proc_pass"}, {"toast": "Получен временный пропуск"}], "next": "quiz"},
+			"quiz": {"speaker": "semyon", "emotion": "strict", "text": "Проверим, как запомнил. Потерял пропуск — что делаешь?",
+				"choices": [
+					{"text": "Попрошу коллег проводить меня, пока не найду.", "correct": false, "retry": true, "feedback_emotion": "strict",
+						"feedback": "Нет-нет. Потерянным пропуском может воспользоваться посторонний. Сразу ко мне — я его заблокирую."},
+					{"text": "Подожду пару дней — вдруг найдётся.", "correct": false, "retry": true, "feedback_emotion": "strict",
+						"feedback": "Пару дней кто-то может ходить по твоему пропуску. Сообщать надо сразу."},
+					{"text": "Сразу сообщу коменданту.", "correct": true, "next": "paper_hint", "feedback_emotion": "happy",
+						"feedback": "Правильно. Пропуск заблокируем и выдадим новый."}
+				]},
+			"paper_hint": {"if": ["!paper_returned"], "else": "dir", "speaker": "semyon", "emotion": "neutral",
+				"text": "Кстати, у турникета кто-то бумагу обронил. Найдёшь — неси мне.", "next": "dir"},
+			"dir": {"speaker": "semyon", "emotion": "neutral", "text": "Твой отдел — второй этаж, кабинет 214, наставник уже ждёт. Турникет теперь пропустит. И глянь стенд со структурой слева — полезно.", "end": true}
+		}
+	},
+	"semyon_idle": {
+		"nodes": {
+			"start": {"if": ["has_book"], "else": "before", "speaker": "semyon", "emotion": "happy", "text": "Если что сломается, потеряется или найдётся — ты знаешь, где меня искать. Проходная, вн. 1-01.", "end": true},
+			"before": {"speaker": "semyon", "emotion": "neutral", "text": "Второй этаж, кабинет 214. Лестница — сразу за турникетом.", "end": true}
+		}
+	},
+	"stand_structure": {
+		"nodes": {
+			"start": {"speaker": "", "text": "Стенд «Структура Администрации Приреченской области». Схема с прямоугольниками и стрелками — кто кому подчиняется.",
+				"effects": [{"set": "saw_structure"}, {"study": "org_structure"}, {"study": "org_mission"}], "next": "open"},
+			"open": {"book": "org", "next": "after"},
+			"after": {"speaker": "", "text": "Ваш отдел — в блоке социальной политики. Схема теперь есть в книжке, раздел «Организация».", "end": true}
+		}
+	},
+	"plan": {
+		"nodes": {
+			"start": {"speaker": "", "text": "План здания. 1 этаж — проходная и столовая. 2 этаж — кадры (205), IT (207), ваш отдел (214). 3 этаж — руководство (301), пресс-служба (305).",
+				"effects": [{"set": "saw_plan"}, {"study": "org_building"}], "end": true}
+		}
+	},
+	"turnstile": {
+		"nodes": {
+			"start": {"if": ["has_pass"], "else": "locked", "speaker": "", "text": "Турникет мигает зелёным. Проходите.", "end": true},
+			"locked": {"speaker": "", "text": "Турникет мигает красным. Нужен пропуск — его выдаёт комендант на вахте.", "end": true}
+		}
+	},
+	"exit_door": {
+		"nodes": {
+			"start": {"if": ["test_passed"], "else": "early", "speaker": "", "text": "Рабочий день окончен. Можно идти домой.", "end": true},
+			"early": {"speaker": "", "text": "Уходить рано — рабочий день только начинается!", "end": true}
+		}
+	}
+}

@@ -1,0 +1,22 @@
+{
+	"gromov_idle": {
+		"nodes": {
+			"start": {"speaker": "gromov", "emotion": "neutral", "text": "Здравствуйте. Поговорим в конце дня, когда освоитесь.", "end": true}
+		}
+	},
+	"lidia_idle": {
+		"nodes": {
+			"start": {"speaker": "lidia", "emotion": "happy", "text": "Отдел кадров. Без печати — не входить! Шучу. Проходите.", "end": true}
+		}
+	},
+	"artem_idle": {
+		"nodes": {
+			"start": {"speaker": "artem", "emotion": "neutral", "text": "Привет. Если что-то не работает — сначала заявка в «Сервис-деск». Ну или звони 2-07.", "end": true}
+		}
+	},
+	"alina_idle": {
+		"nodes": {
+			"start": {"speaker": "alina", "emotion": "happy", "text": "Привет-привет! Я из пресс-службы. Если вдруг позвонят журналисты — сразу ко мне, договорились?", "end": true}
+		}
+	}
+}

@@ -1,0 +1,95 @@
+[
+	{
+		"id": "olga", "name": "Ольга Петровна Лужина", "short": "Ольга Петровна",
+		"role": "Главный специалист, ваш наставник", "dept": "Отдел по работе с обращениями граждан",
+		"responsibility": "Сопровождает адаптацию, объясняет рабочие процессы, СЭД и порядок работы с обращениями. К ней — с любым вопросом, если не знаете, к кому идти.",
+		"contact": "вн. 2-14 · o.luzhina@demo.local", "hours": "Пн–Пт 9:00–18:00, каб. 214",
+		"look": {"body": "#6b4f8a", "hair": "#6a3a1a", "legs": "#3a3040", "skin": "#f0c8a0", "bun": true, "glasses": true, "prop": "folder"},
+		"voice": 1.0,
+		"dialogues": [
+			{"if": ["!has_book"], "id": "olga_meet"},
+			{"id": "olga_idle"}
+		]
+	},
+	{
+		"id": "gromov", "name": "Виктор Андреевич Громов", "short": "Виктор Андреевич",
+		"role": "Начальник отдела, непосредственный руководитель", "dept": "Отдел по работе с обращениями граждан",
+		"responsibility": "Ставит задачи, утверждает документы отдела, согласует отпуска и командировки, проводит итоговую беседу по адаптации.",
+		"contact": "вн. 3-01 (через приёмную) · v.gromov@demo.local", "hours": "Приём по записи через приёмную, каб. 301",
+		"look": {"body": "#2a3550", "hair": "#555555", "legs": "#1e2638", "skin": "#e8c098", "tie": "#a03030"},
+		"voice": 0.75,
+		"dialogues": [{"id": "gromov_idle"}]
+	},
+	{
+		"id": "lidia", "name": "Лидия Аркадьевна Штемпель", "short": "Лидия Аркадьевна",
+		"role": "Главный специалист отдела кадров", "dept": "Отдел кадров и государственной службы",
+		"responsibility": "Оформление на службу, справки с места работы, отпуска, больничные, обучение и повышение квалификации, ограничения и запреты.",
+		"contact": "вн. 2-05 · kadry@demo.local", "hours": "Пн–Чт 9:00–17:00, Пт 9:00–15:00, каб. 205",
+		"look": {"body": "#8a2a2a", "hair": "#d0d0d0", "legs": "#3a2a2a", "skin": "#f0c8a0", "bun": true, "glasses": true},
+		"voice": 1.2,
+		"dialogues": [{"id": "lidia_idle"}]
+	},
+	{
+		"id": "artem", "name": "Артём Байтов", "short": "Артём",
+		"role": "Специалист отдела информатизации", "dept": "Отдел информатизации и защиты информации",
+		"responsibility": "Учётные записи и доступы, рабочие компьютеры, корпоративная почта, заявки в техподдержку, информационная безопасность.",
+		"contact": "вн. 2-07 · Портал заявок «Сервис-деск» · it@demo.local", "hours": "Пн–Пт 8:30–18:00, каб. 207",
+		"look": {"body": "#2a2a2a", "hair": "#6a4a2a", "legs": "#3a3a50", "skin": "#f0c8a0", "prop": "phone"},
+		"voice": 1.4,
+		"dialogues": [{"id": "artem_idle"}]
+	},
+	{
+		"id": "semyon", "name": "Семён Ильич Ключников", "short": "Семён Ильич",
+		"role": "Комендант здания", "dept": "Административно-хозяйственный отдел",
+		"responsibility": "Пропуска, ключи, рабочие места и мебель, вывоз техники, найденные вещи и документы.",
+		"contact": "вн. 1-01 · ahs@demo.local", "hours": "Пн–Пт 7:00–19:00, проходная (1 этаж)",
+		"look": {"body": "#4a5a3a", "hair": "#9a9a9a", "legs": "#2f3a2a", "skin": "#e8c098", "cap": "#2f3a2a"},
+		"voice": 0.8,
+		"dialogues": [
+			{"if": ["!has_pass"], "id": "semyon_pass"},
+			{"id": "semyon_idle"}
+		]
+	},
+	{
+		"id": "alina", "name": "Алина Звонарёва", "short": "Алина",
+		"role": "Специалист пресс-службы", "dept": "Пресс-служба",
+		"responsibility": "Запросы СМИ, официальный сайт и соцсети администрации, комментарии от имени органа.",
+		"contact": "вн. 3-05 · press@demo.local", "hours": "Пн–Пт 9:00–18:00, каб. 305",
+		"look": {"body": "#d05a8a", "hair": "#1a1a1a", "legs": "#2b2b35", "skin": "#f0c8a0", "long_hair": true, "prop": "phone"},
+		"voice": 1.3,
+		"dialogues": [{"id": "alina_idle"}]
+	},
+	{
+		"id": "dima", "name": "Дмитрий Новиков", "short": "Дима",
+		"role": "Специалист, ваш коллега", "dept": "Отдел по работе с обращениями граждан",
+		"responsibility": "Коллега по отделу, сам пришёл полгода назад. Подскажет, как здесь принято, где шаблоны и когда планёрки.",
+		"contact": "вн. 2-16 · d.novikov@demo.local", "hours": "Пн–Пт 9:00–18:00, каб. 214",
+		"look": {"body": "#5a7a9a", "hair": "#4a3020", "legs": "#2b2b35", "skin": "#f0c8a0"},
+		"voice": 1.1,
+		"dialogues": [{"id": "dima_idle"}]
+	},
+	{
+		"id": "gosha", "name": "Гоша", "short": "Гоша", "in_team": false,
+		"role": "Стажёр", "dept": "Комитет по молодёжной политике (стажировка)",
+		"look": {"body": "#d07a2a", "hair": "#222222", "legs": "#3a3a50", "skin": "#f0c8a0", "prop": "lollipop", "prop_color": "#e0405a"},
+		"voice": 1.25,
+		"dialogues": [
+			{"if": ["!talked_interns"], "id": "interns_intro"},
+			{"if": ["!has_pass"], "id": "interns_wait"},
+			{"if": ["!has_book"], "id": "interns_after_pass"},
+			{"id": "interns_later"}
+		]
+	},
+	{
+		"id": "pasha", "name": "Паша", "short": "Паша", "in_team": false,
+		"role": "Стажёр", "dept": "Комитет по молодёжной политике (стажировка)",
+		"look": {"body": "#2a9a8a", "hair": "#c8a050", "legs": "#3a3a50", "skin": "#f0c8a0", "prop": "lollipop", "prop_color": "#9ad040"},
+		"voice": 1.35,
+		"dialogues": [
+			{"if": ["!talked_interns"], "id": "interns_intro"},
+			{"if": ["!has_pass"], "id": "interns_wait"},
+			{"if": ["!has_book"], "id": "interns_after_pass"},
+			{"id": "interns_later"}
+		]
+	}
+]

@@ -1,0 +1,39 @@
+; Engine configuration file.
+
+config_version=5
+
+[application]
+
+config/name="Книжка новичка: Первый день"
+config/description="Учебная игра-адаптация нового сотрудника вымышленного органа власти"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+config/icon="res://icon.svg"
+run/low_processor_mode=false
+
+[autoload]
+
+Content="*res://autoload/content.gd"
+GameState="*res://autoload/game_state.gd"
+Quests="*res://autoload/quests.gd"
+Dialogue="*res://autoload/dialogue.gd"
+Router="*res://autoload/router.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation=4
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/canvas_textures/default_texture_filter=0
+environment/defaults/default_clear_color=Color(0.09, 0.08, 0.11, 1)

@@ -1,0 +1,93 @@
+[
+	{
+		"id": "q1_pass", "title": "Получить пропуск", "time": "08:45",
+		"description": "Первый день начинается на проходной. Нужен временный пропуск — его выдаёт комендант.",
+		"giver": "semyon", "location": "l1_hall", "requires": [],
+		"hint": "Комендант Семён Ильич сидит за стойкой вахты справа. По дороге осмотритесь: в холле есть стенд со структурой администрации.",
+		"objectives": [
+			{"id": "interns", "text": "Поговорить со стажёрами у входа", "done": ["talked_interns"]},
+			{"id": "paper", "text": "Разобраться со свёртком на полу", "done": ["paper_returned"]},
+			{"id": "pass", "text": "Получить пропуск у коменданта", "done": ["has_pass"]},
+			{"id": "structure", "text": "Изучить стенд «Структура администрации»", "done": ["saw_structure"]}
+		],
+		"cards": ["rule_pass", "rule_found_docs", "org_structure"]
+	},
+	{
+		"id": "q2_mentor", "title": "Встретиться с наставником", "time": "09:00",
+		"description": "Наставник ждёт в отделе по работе с обращениями граждан, кабинет 214 на втором этаже.",
+		"giver": "olga", "location": "l3_office", "requires": ["q:q1_pass"],
+		"hint": "Пройдите через турникет, поднимитесь на второй этаж и найдите дверь с табличкой «214».",
+		"objectives": [
+			{"id": "find", "text": "Найти кабинет 214", "done": ["visited_office"]},
+			{"id": "book", "text": "Получить «Книжку новичка» у наставника", "done": ["has_book"]}
+		],
+		"cards": ["guide_book"]
+	},
+	{
+		"id": "q3_hr", "title": "Оформиться в кадрах", "time": "09:30",
+		"description": "В отделе кадров нужно сдать документы и узнать главные правила службы.",
+		"giver": "lidia", "location": "l4_service", "requires": ["q:q2_mentor"],
+		"hint": "Отдел кадров — кабинет 205 на втором этаже. Возьмите с собой документы из списка в книжке.",
+		"objectives": [
+			{"id": "docs", "text": "Сдать документы в отдел кадров", "done": ["hr_docs_done"]},
+			{"id": "rules", "text": "Разобраться, что можно и что нельзя госслужащему", "done": ["case:case_limits"]}
+		],
+		"cards": ["proc_hiring", "rule_limits"]
+	},
+	{
+		"id": "q4_it", "title": "Получить доступы", "time": "10:30",
+		"description": "Без учётной записи компьютер не включить. Доступы выдаёт отдел информатизации.",
+		"giver": "artem", "location": "l4_service", "requires": ["q:q2_mentor"],
+		"hint": "Отдел информатизации — кабинет 207, рядом с кадрами.",
+		"objectives": [
+			{"id": "account", "text": "Получить учётную запись", "done": ["it_account"]},
+			{"id": "password", "text": "Придумать надёжный пароль", "done": ["it_password"]}
+		],
+		"cards": ["proc_login", "rule_passwords"]
+	},
+	{
+		"id": "q5_first_task", "title": "Первое поручение", "time": "11:30",
+		"description": "Наставник даёт первое настоящее задание: зарегистрировать обращение гражданина в СЭД.",
+		"giver": "olga", "location": "l3_office", "requires": ["q:q3_hr", "q:q4_it"],
+		"hint": "Сядьте за свой компьютер в кабинете 214 и откройте почту и СЭД.",
+		"objectives": [
+			{"id": "login", "text": "Войти в систему", "done": ["pc_login"]},
+			{"id": "phishing", "text": "Разобраться с подозрительным письмом", "done": ["case:case_phishing"]},
+			{"id": "sed", "text": "Зарегистрировать обращение в СЭД", "done": ["case:case_sed"]},
+			{"id": "pd", "text": "Решить, как передать данные заявителя", "done": ["case:case_pd"]}
+		],
+		"cards": ["proc_sed", "rule_infosec", "rule_pd"]
+	},
+	{
+		"id": "q6_team", "title": "Познакомиться с командой", "time": "13:00",
+		"description": "Пора узнать людей, с которыми предстоит работать, и как здесь всё устроено.",
+		"giver": "olga", "location": "l2_corridor", "requires": ["q:q5_first_task"],
+		"hint": "Дима обычно у кулера в коридоре, Алина из пресс-службы — в холле у стенда.",
+		"objectives": [
+			{"id": "dima", "text": "Поговорить с Димой о том, как здесь принято", "done": ["talked_dima"]},
+			{"id": "meeting", "text": "Найти на доске объявлений ближайшее совещание", "done": ["saw_meeting"]},
+			{"id": "press", "text": "Помочь Алине со звонком журналиста", "done": ["case:case_press"]}
+		],
+		"cards": ["rule_service_info", "proc_meetings"]
+	},
+	{
+		"id": "q7_search", "title": "Найди сам", "time": "14:30",
+		"description": "Наставник проверяет главный навык новичка — быстро находить ответы в книжке.",
+		"giver": "olga", "location": "l3_office", "requires": ["q:q6_team"],
+		"hint": "Откройте книжку и воспользуйтесь строкой поиска вверху.",
+		"objectives": [
+			{"id": "search", "text": "Ответить на вопросы наставника с помощью поиска", "done": ["search_done"]}
+		],
+		"cards": []
+	},
+	{
+		"id": "q8_attestation", "title": "Беседа с руководителем", "time": "16:30",
+		"description": "В конце дня руководитель отдела проверит, насколько вы освоились.",
+		"giver": "gromov", "location": "l5_director", "requires": ["q:q7_search"],
+		"hint": "Кабинет руководителя — 301, третий этаж. Лестница в конце коридора.",
+		"objectives": [
+			{"id": "test", "text": "Пройти итоговую аттестацию", "done": ["test_passed"]}
+		],
+		"cards": []
+	}
+]

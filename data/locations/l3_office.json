@@ -1,0 +1,49 @@
+{
+	"id": "l3_office",
+	"title": "Отдел по работе с обращениями · каб. 214",
+	"floor": "parquet", "floor_a": "#c9a675", "floor_b": "#b8935f", "wall": "#b8c4a8", "door": "#5a3a22",
+	"on_enter": [{"set": "visited_office"}],
+	"grid": [
+		"######################",
+		"#....................#",
+		"#....................#",
+		"#....................#",
+		"#....................#",
+		"#....................#",
+		"#....................#",
+		"#....................#",
+		"#....................#",
+		"#....................#",
+		"#....................#",
+		"#....................#",
+		"#########DD###########"
+	],
+	"labels": [
+		{"text": "КОРИДОР", "pos": [11.3, 12]}
+	],
+	"spawns": {"from_l2": [9, 11], "default": [9, 10]},
+	"doors": [
+		{"rect": [9, 12, 2, 1], "to": "l2_corridor", "spawn": "from_l3"}
+	],
+	"npcs": [
+		{"id": "olga", "pos": [10, 7], "facing": "down"}
+	],
+	"objects": [
+		{"id": "window1", "prop": "window", "pos": [3, 0], "size": [3, 1]},
+		{"id": "window2", "prop": "window", "pos": [10, 0], "size": [3, 1]},
+		{"id": "window3", "prop": "window", "pos": [16, 0], "size": [3, 1]},
+		{"id": "my_desk", "prop": "desk", "pos": [2, 3], "size": [3, 1], "solid": true},
+		{"id": "my_pc", "prop": "computer", "pos": [3, 2.45], "size": [1, 1], "z": 1, "title": "Ваш компьютер",
+			"dialogues": [{"id": "my_pc"}]},
+		{"id": "dima_desk", "prop": "desk", "pos": [8, 3], "size": [3, 1], "solid": true,
+			"dialogues": [{"id": "dima_desk"}]},
+		{"id": "olga_desk", "prop": "desk", "pos": [14, 3], "size": [3, 1], "solid": true},
+		{"id": "olga_pc", "prop": "computer", "pos": [15, 2.45], "size": [1, 1], "z": 1},
+		{"id": "cabinet", "prop": "cabinet", "pos": [19, 1], "size": [2, 2], "solid": true, "title": "Шкаф с шаблонами",
+			"dialogues": [{"id": "templates_cabinet"}]},
+		{"id": "printer", "prop": "printer", "pos": [19, 8], "size": [2, 1], "solid": true,
+			"dialogues": [{"id": "printer"}]},
+		{"id": "plant1", "prop": "plant", "pos": [1, 10], "size": [1, 2], "solid": true},
+		{"id": "plant2", "prop": "plant", "pos": [20, 10], "size": [1, 2], "solid": true}
+	]
+}

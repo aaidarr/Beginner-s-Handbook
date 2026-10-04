@@ -1,0 +1,54 @@
+{
+	"id": "l1_hall",
+	"title": "Холл и проходная · 1 этаж",
+	"floor": "checker", "floor_a": "#d9d4c7", "floor_b": "#c4bdac", "wall": "#8796a6", "door": "#6b4a2a",
+	"grid": [
+		"###########DD###########",
+		"#......................#",
+		"#......................#",
+		"#......................#",
+		"#rrrrrrrrrrTTrrrrrrrrrr#",
+		"#......................#",
+		"#......................#",
+		"#......................#",
+		"#......................#",
+		"#......................#",
+		"#......................#",
+		"#......................#",
+		"#......................#",
+		"##########EEEE##########"
+	],
+	"labels": [
+		{"text": "2 ЭТАЖ", "pos": [13.3, 0]},
+		{"text": "ВЫХОД", "pos": [14.3, 13]}
+	],
+	"spawns": {"start": [11, 11], "from_l2": [11, 1], "default": [11, 11]},
+	"doors": [
+		{"rect": [11, 0, 2, 1], "to": "l2_corridor", "spawn": "from_l1", "if": ["has_pass"], "locked": "Сначала получите пропуск."},
+		{"rect": [10, 13, 4, 1], "to": "", "locked": "Уходить рано — рабочий день только начинается!"}
+	],
+	"npcs": [
+		{"id": "semyon", "pos": [17, 5], "facing": "down"},
+		{"id": "gosha", "pos": [4, 8], "facing": "right"},
+		{"id": "pasha", "pos": [6, 8], "facing": "left"}
+	],
+	"objects": [
+		{"id": "reception", "prop": "reception", "pos": [15, 6], "size": [5, 1], "solid": true},
+		{"id": "burger", "prop": "burger", "pos": [15, 5.45], "size": [1, 1], "z": 1,
+			"dialogues": [{"if": ["!burger_seen"], "id": "burger"}, {"id": "burger_again"}]},
+		{"id": "turnstile", "prop": "turnstile", "pos": [11, 4], "size": [2, 1], "solid_if": ["!has_pass"],
+			"alt": {"if": ["has_pass"], "prop": "turnstile_open"},
+			"dialogues": [{"if": ["!has_pass"], "id": "turnstile"}]},
+		{"id": "paper", "prop": "paper", "pos": [9, 10], "size": [1, 1], "if": ["!paper_returned"],
+			"dialogues": [{"id": "paper"}]},
+		{"id": "stand_structure", "prop": "stand", "pos": [1, 5], "size": [2, 2], "solid": true, "title": "Стенд «Структура»",
+			"dialogues": [{"id": "stand_structure"}]},
+		{"id": "plan", "prop": "plan", "pos": [21, 8], "size": [2, 2], "solid": true, "title": "План здания",
+			"dialogues": [{"id": "plan"}]},
+		{"id": "sofa", "prop": "sofa", "pos": [3, 12], "size": [3, 1], "solid": true},
+		{"id": "plant1", "prop": "plant", "pos": [1, 11], "size": [1, 2], "solid": true},
+		{"id": "plant2", "prop": "plant", "pos": [22, 11], "size": [1, 2], "solid": true},
+		{"id": "plant3", "prop": "plant", "pos": [1, 1], "size": [1, 2], "solid": true},
+		{"id": "plant4", "prop": "plant", "pos": [22, 1], "size": [1, 2], "solid": true}
+	]
+}
