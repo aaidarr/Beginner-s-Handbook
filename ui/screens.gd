@@ -88,14 +88,17 @@ static func character_create(on_done: Callable, on_back: Callable) -> Control:
 		b.toggle_mode = true
 		b.button_pressed = i == 0
 		b.custom_minimum_size = Vector2(160, 190)
-		b.text = "Вариант %d" % (i + 1)
-		b.vertical_icon_alignment = VERTICAL_ALIGNMENT_BOTTOM
-		b.alignment = HORIZONTAL_ALIGNMENT_CENTER
 		var cv := CharacterView.new()
 		cv.setup("hero_%d" % i, hero_looks[i])
 		cv.position = Vector2(80, 140)
 		cv.scale = Vector2(5, 5)
 		b.add_child(cv)
+		var cap := Ui.label("Вариант %d" % (i + 1), "Small", false)
+		cap.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		cap.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+		cap.offset_top = -36
+		cap.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		b.add_child(cap)
 		b.pressed.connect(func():
 			chosen[0] = i
 			for j in buttons.size():
