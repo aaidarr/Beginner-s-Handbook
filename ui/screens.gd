@@ -29,40 +29,81 @@ static func main_menu(main: Node) -> Control:
 	var root := Control.new()
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_backdrop(root)
-	var v := _center_panel(root, 820)
-	var title := Ui.label("КНИЖКА НОВИЧКА", "Pixel", false)
-	title.add_theme_font_size_override("font_size", 32)
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	v.add_child(title)
-	var sub := Ui.label("Первый день · " + Content.org.get("name", ""), "Strong")
-	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	v.add_child(sub)
-	v.add_child(Ui.label(Content.org.get("welcome", "")))
-	v.add_child(Ui.label("Пройдите свой первый рабочий день: познакомьтесь с командой, разберитесь в правилах и процессах, а всё важное останется в вашей книжке.", "Small"))
+	# characters on the right
+	var cast := Control.new()
+	cast.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	cast.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(cast)
+	var looks: Array = Content.org.get("hero_looks", [{}])
+	var people := [
+		["gosha", Content.npc("gosha").get("look", {}), 0.62, "right"],
+		["hero", looks[clampi(GameState.player_look, 0, looks.size() - 1)], 0.76, "down"],
+		["pasha", Content.npc("pasha").get("look", {}), 0.90, "left"],
+	]
+	for p in people:
+		var cv := CharacterView.new()
+		cv.setup(p[0], p[1])
+		cv.facing = p[3]
+		cv.scale = Vector2(8, 8)
+		cast.add_child(cv)
+		cast.resized.connect(func(): cv.position = Vector2(cast.size.x * p[2], cast.size.y * 0.86))
+	# left column
+	var m := Ui.safe_margins(root.get_viewport()) if root.is_inside_tree() else Vector4(16, 16, 16, 16)
+	var col := Ui.vbox(8)
+	col.set_anchors_and_offsets_preset(Control.PRESET_LEFT_WIDE)
+	col.offset_left = maxf(64.0, m.x + 32.0)
+	col.offset_right = col.offset_left + 470
+	col.alignment = BoxContainer.ALIGNMENT_CENTER
+	root.add_child(col)
+	for line in ["КНИЖКА", "НОВИЧКА"]:
+		var t := Ui.label(line, "Pixel", false)
+		t.add_theme_font_size_override("font_size", 40)
+		t.add_theme_color_override("font_color", Color("#f3e9d2"))
+		t.add_theme_color_override("font_shadow_color", Color("#2f5d8a"))
+		t.add_theme_constant_override("shadow_offset_x", 4)
+		t.add_theme_constant_override("shadow_offset_y", 4)
+		col.add_child(t)
+	col.add_child(Ui.label("Первый день · " + Content.org.get("short", ""), "Light", false))
 	var has_save := GameState.has_save() and GameState.load_game()
 	if has_save:
+		var card := Ui.panel("Card")
+		var cv := Ui.vbox(4)
+		card.add_child(cv)
 		var p := Progress.overall()
-		v.add_child(Ui.label("%s — адаптация %d%% · %s" % [GameState.player_name, roundi(p * 100), Progress.status(p)], "Strong"))
-		v.add_child(Ui.progress(p))
-	var row := Ui.hbox(12)
+		cv.add_child(Ui.label("%s · %d%% · %s" % [GameState.player_name, roundi(p * 100), Progress.status(p)], "Strong", false))
+		var cur := Quests.current()
+		cv.add_child(Ui.label("Сейчас: " + cur.get("title", "все задачи дня выполнены"), "Small", false))
+		cv.add_child(Ui.progress(p, false))
+		col.add_child(card)
+	var items: Array = []
 	if has_save:
-		var cont := Ui.button("Продолжить", main.continue_game, "Accent")
-		cont.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		row.add_child(cont)
-		cont.grab_focus.call_deferred()
-		row.add_child(Ui.button("Начать заново", main.confirm_new_game))
+		items.append(["Продолжить", main.continue_game, "Accent"])
+		items.append(["Новая игра", main.confirm_new_game, ""])
 	else:
-		var start := Ui.button("Пройти адаптацию", main.new_game, "Accent")
-		start.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		row.add_child(start)
-		start.grab_focus.call_deferred()
-	v.add_child(row)
-	var row2 := Ui.hbox(12)
-	for pair in [["Книжка", main.open_book_from_menu], ["Настройки", main.open_settings], ["О проекте", main.open_about]]:
-		var b := Ui.button(pair[0], pair[1])
-		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		row2.add_child(b)
-	v.add_child(row2)
+		items.append(["Начать первый день", main.new_game, "Accent"])
+	items.append(["Книжка новичка", main.open_book_from_menu, ""])
+	items.append(["Настройки", main.open_settings, ""])
+	items.append(["О проекте", main.open_about, ""])
+	if not OS.has_feature("web") and not OS.has_feature("ios"):
+		items.append(["Выйти из игры", main.confirm_quit, ""])
+	var first: Button
+	for it in items:
+		var b := Ui.button(it[0], it[1], it[2])
+		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		b.custom_minimum_size.y = 54
+		b.add_theme_font_size_override("font_size", Ui.fs(24))
+		col.add_child(b)
+		if first == null:
+			first = b
+	first.grab_focus.call_deferred()
+	var ver := Ui.label("Учебный прототип · v0.2", "Light", false)
+	ver.modulate.a = 0.6
+	ver.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+	ver.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+	ver.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	ver.offset_right = -24
+	ver.offset_bottom = -16
+	root.add_child(ver)
 	return root
 
 
@@ -166,7 +207,7 @@ static func settings(on_close: Callable, on_changed: Callable, on_reset: Callabl
 	return root
 
 
-static func pause(on_resume: Callable, on_book: Callable, on_settings: Callable, on_menu: Callable) -> Control:
+static func pause(on_resume: Callable, on_book: Callable, on_settings: Callable, on_menu: Callable, on_quit: Callable) -> Control:
 	var root := Control.new()
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.add_child(Ui.dim())
@@ -179,6 +220,8 @@ static func pause(on_resume: Callable, on_book: Callable, on_settings: Callable,
 	v.add_child(Ui.button("Книжка новичка", on_book))
 	v.add_child(Ui.button("Настройки", on_settings))
 	v.add_child(Ui.button("Главное меню", on_menu))
+	if not OS.has_feature("web") and not OS.has_feature("ios"):
+		v.add_child(Ui.button("Выйти из игры", on_quit))
 	return root
 
 

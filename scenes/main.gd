@@ -139,7 +139,20 @@ func open_pause() -> void:
 		_set_overlay(null)
 		book.open(), open_settings, func():
 		GameState.save()
-		show_main_menu()))
+		show_main_menu(), confirm_quit))
+
+
+func confirm_quit() -> void:
+	var back: Callable = open_pause if Router.player else func(): _set_overlay(null)
+	_set_overlay(Screens.message("Выйти из игры?", "Прогресс сохранён — в следующий раз нажмите «Продолжить».",
+		[["Отмена", back], ["Выйти", quit_game, "Accent"]]))
+
+
+func quit_game() -> void:
+	if Router.player:
+		GameState.save()
+	GameState.save_settings()
+	get_tree().quit()
 
 
 func _on_quest_completed(q: Dictionary) -> void:
