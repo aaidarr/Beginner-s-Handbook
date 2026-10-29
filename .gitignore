@@ -3,3 +3,5 @@ tools/
 build/
 *.tmp
 export_credentials.cfg
+docs/DEFENSE_QA.md
+docs/DEFENSE_QA.docx
